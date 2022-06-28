@@ -1,0 +1,10 @@
+App\Products\Music\Record\Domain\Record:
+  type: entity
+  table: record
+
+  id:
+    id: { type: record_id }
+
+  fields:
+    name: { type: string }
+

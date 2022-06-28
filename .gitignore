@@ -1,0 +1,20 @@
+###> symfony/framework-bundle ###
+/kpi_raspinu/.env
+/kpi_raspinu/.env.local.php
+/kpi_raspinu/.env.*.local
+/kpi_raspinu/config/secrets/prod/prod.decrypt.private.php
+/kpi_raspinu/public/bundles/
+/kpi_raspinu/var/
+/kpi_raspinu/vendor/
+###< symfony/framework-bundle ###
+
+/kpi_raspinu/data/*
+
+
+###> symfony/phpunit-bridge ###
+/kpi_raspinu/.phpunit
+/kpi_raspinu/.phpunit.result.cache
+/kpi_raspinu/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+.idea
