@@ -53,14 +53,9 @@ class DoctrineRecordRepository implements RecordQueryRepository
         );
     }
 
-    public function findOneBy(RecordId $recordId): Record
+    public function findOneBy(RecordId $recordId): ?Record
     {
-        $record = $this->repository->findOneBy(['id' => $recordId]);
-
-        if (!$record) {
-            throw new HttpException(Response::HTTP_NO_CONTENT,'RecordID '.$recordId.' Not Exist');
-        }
-        return  $record;
+        return $this->repository->findOneBy(['id' => $recordId]);
     }
 
 

@@ -68,7 +68,7 @@ namespace App\Api\Application\Controller\Record;
              )
          );
 
-         return $this->makeResponse(['code'=>201,'status'=>'Updated'], Response::HTTP_OK);
+         return $this->makeResponse(['code'=>201,'status'=>'Updated','itemUpdated'=>$id], Response::HTTP_OK);
      }
 
      protected function exceptions(): array

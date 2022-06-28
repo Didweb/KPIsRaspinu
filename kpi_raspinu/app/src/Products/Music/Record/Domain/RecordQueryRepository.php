@@ -10,5 +10,5 @@ interface RecordQueryRepository
 {
     public function AllRecords(Paginated $paginated): PaginatedResponse;
 
-    public function findOneBy(RecordId $recordId): Record;
+    public function findOneBy(RecordId $recordId): ?Record;
 }

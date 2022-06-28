@@ -4,6 +4,7 @@ namespace App\Products\Music\Record\Infrastructure\Doctrine\Repository;
 
 use App\Products\Music\Record\Application\Command\DeleteRecordCommand;
 use App\Products\Music\Record\Application\Command\UpdateRecordCommand;
+use App\Products\Music\Record\Domain\Exceptions\RecordNotFoundException;
 use App\Products\Music\Record\Domain\Exceptions\RecordThisIdExists;
 use App\Products\Music\Record\Domain\Record;
 use App\Products\Music\Record\Domain\RecordCommandRepository;
@@ -42,13 +43,12 @@ class DoctrineRecordResponseRepository implements RecordCommandRepository
     public function save(Record $record): void
     {
         $idToCheck = RecordId::create($record->id());
-//        $repository = $this->em->getRepository(Record::class);
-//
-//        $existId = $repository->findOneBy(['id' => $idToCheck]);
+
         $existId = $this->repositoryQuery->findOneBy($idToCheck);
 
         if (null === $existId) {
-            throw new Exception('RecordId: '.$idToCheck.' Not Exist. [43]');
+            throw RecordNotFoundException::checkByRecordId($idToCheck);
+            //throw new Exception('RecordId: '.$idToCheck.' Not Exist. [43]');
         }
 
 

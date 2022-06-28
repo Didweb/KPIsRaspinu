@@ -16,15 +16,9 @@ final class RecordFinder
         $this->queryRepository = $queryRepository;
     }
 
-    public function __invoke(RecordId $recordId): Record
+    public function __invoke(RecordId $recordId): ?Record
     {
-        $record = $this->queryRepository->findOneBy($recordId);
-
-        if (null == $record) {
-            throw new HttpException('Record with id: <%s> not found', (string)$recordId);
-        }
-
-        return $record;
+        return $this->queryRepository->findOneBy($recordId);
 
     }
 

@@ -3,6 +3,7 @@
 namespace App\Products\Music\Record\Application\Command;
 
 use App\Products\Music\Record\Application\Services\UpdateRecordServiceCommand;
+use App\Products\Music\Record\Domain\Exceptions\RecordNotFoundException;
 use App\Products\Music\Record\Domain\RecordCommandRepository;
 use App\Products\Music\Record\Domain\RecordFinder;
 use App\Products\Music\Record\Domain\RecordQueryRepository;
@@ -28,13 +29,18 @@ class UpdateRecordCommandHandler
     public function __invoke(UpdateRecordCommand $command): void
     {
         $recordId = RecordId::create($command->id());
+        $record = $this->finder->__invoke($recordId);
+
+        if(null === $record){
+            throw RecordNotFoundException::checkByRecordId($recordId);
+        }
+
         $name = $command->name();
 
         $serviceCommand = new UpdateRecordServiceCommand(
             $recordId,
             $name
         );
-        $record = $this->finder->__invoke($recordId);
 
         $record->update($serviceCommand);
         $this->recordCommandRepository->save($record);
