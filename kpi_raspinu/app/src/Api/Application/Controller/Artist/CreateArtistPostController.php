@@ -1,40 +1,38 @@
 <?php
 
-namespace App\Api\Application\Controller\Record;
+namespace App\Api\Application\Controller\Artist;
 
-use App\Api\Application\Controller\Record\Request\CreateRecordRequest;
-use App\Products\Music\Record\Application\Command\CreateRecordCommand;
+use App\Api\Application\Controller\Artist\Request\CreateArtistRequest;
+use App\Products\Music\Artist\Application\Command\CreateArtistCommand;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use OpenApi\Annotations as OA;
 
-
-class CreateRecordPostController extends ApiController
+class CreateArtistPostController extends ApiController
 {
-
     /**
-     * Create a record
+     * Create a artist
      *
-     * @Route("/record/create", methods={"POST"}, name="api_record_create")
+     * @Route("/artist/create", methods={"POST"}, name="api_artist_create")
      *
      *
      * @OA\Tag(
-     *     name="Products Records",
-     *     description="Operations about records"
+     *     name="Products Artist",
+     *     description="Operations about artist"
      * ),
      * @OA\RequestBody(
      *        required = true,
-     *        description = "Data for a Record",
+     *        description = "Data for a Artist",
      *        @OA\JsonContent(
      *             type="object",
      *             @OA\Property(
-     *                property="record",
+     *                property="artist",
      *                type="array",
      *                example={{
-     *                  "id": "b026b3f4-be48-11eb-8529-0242ac130003",
-     *                  "name": "Kaya"
+     *                  "id": "80007fc6-f7bc-11ec-b939-0242ac120002",
+     *                  "name": "Bob Marley"
      *                }},
      *                @OA\Items(
      *                      @OA\Property(
@@ -61,18 +59,18 @@ class CreateRecordPostController extends ApiController
      */
     public function __invoke(Request $request): Response
     {
-        $request = CreateRecordRequest::fromContent($this->getContent($request));
+        $request = CreateArtistRequest::fromContent($this->getContent($request));
 
-        $createRecordCommand =  new CreateRecordCommand(
-               $request->id(),
-                $request->name()
-            );
+        $createArtistCommend = new CreateArtistCommand(
+            $request->id(),
+            $request->name()
+        );
 
+        $this->dispatch($createArtistCommend);
 
-        $this->dispatch($createRecordCommand);
-
-        return  $this->makeResponse($createRecordCommand->_toArray(), Response::HTTP_CREATED);
+        return  $this->makeResponse($createArtistCommend->_toArray(), Response::HTTP_CREATED);
     }
+
 
     protected function exceptions(): array
     {
