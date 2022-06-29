@@ -6,6 +6,7 @@
 parameters:
     env: '%env(ENVIRONMENT)%'
     host: '%env(CORE_HOST)%'
+    personal: '%env(FILE_CONTROL)%'
 
 services:
     # default configuration for services in *this* file

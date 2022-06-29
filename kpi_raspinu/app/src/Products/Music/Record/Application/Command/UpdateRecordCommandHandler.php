@@ -32,7 +32,7 @@ class UpdateRecordCommandHandler
         $record = $this->finder->__invoke($recordId);
 
         if(null === $record){
-            throw RecordNotFoundException::checkByRecordId($recordId);
+            throw  RecordNotFoundException::checkByRecordId($recordId);
         }
 
         $name = $command->name();

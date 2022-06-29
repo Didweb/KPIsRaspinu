@@ -1,0 +1,9 @@
+App\Products\Music\Artist\Domain\Artist:
+  type: entity
+  table: artist
+
+  id:
+    id: { type: artist_id }
+
+  fields:
+    name: { type: string }
