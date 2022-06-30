@@ -25,11 +25,17 @@ class CreateArtistCommandHandler
     public function __invoke(CreateArtistCommand $command): void
     {
         $artistId = ArtistId::create($command->id());
-        $artist = $this->finder->__invoke($artistId);
+        $artist = $this->finder->checkByArtistId($artistId);
 
         if(null !== $artist){
-            throw  ArtistExistException::checkByRecordId($artistId);
+            throw  ArtistExistException::checkByArtistId($artistId);
         }
+
+        $artist = $this->finder->checkByArtistName($command->name());
+        if(null !== $artist){
+            throw  ArtistExistException::checkByArtistName($command->name());
+        }
+
         $createArtist = new CreateArtistServiceCommand(
             $artistId,
             $command->name()

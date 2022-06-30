@@ -35,6 +35,7 @@ class DoctrineRecordResponseRepository implements RecordCommandRepository
 
     public function create(Record $record): void
     {
+
         $this->em->persist($record);
         $this->em->flush($record);
     }
@@ -48,9 +49,7 @@ class DoctrineRecordResponseRepository implements RecordCommandRepository
 
         if (null === $existId) {
             throw RecordNotFoundException::checkByRecordId($idToCheck);
-            //throw new Exception('RecordId: '.$idToCheck.' Not Exist. [43]');
         }
-
 
         $this->em->persist($record);
         $this->em->flush($record);

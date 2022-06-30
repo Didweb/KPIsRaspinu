@@ -3,8 +3,10 @@
 namespace App\Products\Music\Artist\Infrastructure\Doctrine\Repository;
 
 use App\Products\Music\Artist\Domain\Artist;
+use App\Products\Music\Artist\Domain\ValueObjects\ArtistId;
 use App\Products\Music\Artist\Domain\ArtistQueryRepository;
-use App\Products\Music\Record\Infrastructure\Response\PaginatedRecordResponseConverter;
+use App\Products\Music\Artist\Infrastructure\Response\ArtistResponseConverter;
+use App\Products\Music\Artist\Infrastructure\Response\PaginatedArtistResponseConverter;
 use App\Shared\Domain\ValueObjects\Paginated\Paginated;
 use App\Shared\Domain\ValueObjects\Paginated\PaginatedCollection;
 use App\Shared\Domain\ValueObjects\Paginated\PaginatedResponse;
@@ -16,15 +18,18 @@ class DoctrineArtistQueryRepository implements ArtistQueryRepository
 
     private EntityManagerInterface $em;
     private ObjectRepository $repository;
-    private PaginatedRecordResponseConverter $paginatedRecordResponseConverter;
+    private ArtistResponseConverter $artistResponseConverter;
+    private PaginatedArtistResponseConverter $paginatedArtistResponseConverter;
 
     public function __construct(
         EntityManagerInterface $manager,
-        PaginatedRecordResponseConverter $paginatedRecordResponseConverter)
+        ArtistResponseConverter $artistResponseConverter,
+        PaginatedArtistResponseConverter $paginatedArtistResponseConverter)
     {
         $this->em = $manager;
         $this->repository = $this->em->getRepository(Artist::class);
-        $this->paginatedRecordResponseConverter = $paginatedRecordResponseConverter;
+        $this->artistResponseConverter = $artistResponseConverter;
+        $this->paginatedArtistResponseConverter = $paginatedArtistResponseConverter;
     }
 
 
@@ -37,9 +42,21 @@ class DoctrineArtistQueryRepository implements ArtistQueryRepository
             return $this->repository->find($artists->id());
         }, $artists);
 
-        return $this->paginatedRecordResponseConverter->__invoke(
+        return $this->paginatedArtistResponseConverter->__invoke(
             PaginatedCollection::createFromArray($data, count($totalArtist)),
             $paginated
         );
     }
+
+    public function findOneBy(ArtistId $artistId): ?Artist
+    {
+        return $this->repository->findOneBy(['id' => $artistId]);
+    }
+
+    public function findOneByName(string $name): ?Artist
+    {
+        return $this->repository->findOneBy(['name' => $name]);
+    }
+
+
 }

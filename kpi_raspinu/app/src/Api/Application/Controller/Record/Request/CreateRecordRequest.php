@@ -7,12 +7,17 @@ final class CreateRecordRequest
 {
     private string $id;
     private string $name;
+    private string $artistId;
 
 
-    public function __construct(string $id, string $name)
+    public function __construct(string $id,
+                                string $name,
+                                string $artistId,
+    )
     {
         $this->id = $id;
         $this->name = $name;
+        $this->artistId = $artistId;
     }
 
 
@@ -21,13 +26,16 @@ final class CreateRecordRequest
         $content = $content['record'][0];
 
         if (!isset($content['id'])
-            || !isset($content['name'])) {
-            throw new InvalidArgumentException('Field id and name is required');
+            || !isset($content['name'])
+            || !isset($content['artistId'])
+        ) {
+            throw new InvalidArgumentException('Field id, name and artistId is required');
         }
 
         return new self (
             $content['id'],
             $content['name'],
+            $content['artistId'],
         );
     }
 
@@ -41,6 +49,12 @@ final class CreateRecordRequest
     public function name(): string
     {
         return $this->name;
+    }
+
+
+    public function artistId(): string
+    {
+        return $this->artistId;
     }
 
 

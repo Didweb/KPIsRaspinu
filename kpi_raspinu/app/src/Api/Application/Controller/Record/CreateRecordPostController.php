@@ -4,6 +4,7 @@ namespace App\Api\Application\Controller\Record;
 
 use App\Api\Application\Controller\Record\Request\CreateRecordRequest;
 use App\Products\Music\Record\Application\Command\CreateRecordCommand;
+use App\Products\Music\Record\Domain\Record;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,8 @@ class CreateRecordPostController extends ApiController
      *                type="array",
      *                example={{
      *                  "id": "b026b3f4-be48-11eb-8529-0242ac130003",
-     *                  "name": "Kaya"
+     *                  "name": "Kaya",
+     *                  "artistId": "80007fc6-f7bc-11ec-b939-0242ac120002",
      *                }},
      *                @OA\Items(
      *                      @OA\Property(
@@ -44,6 +46,11 @@ class CreateRecordPostController extends ApiController
      *                      ),
      *                      @OA\Property(
      *                         property="name",
+     *                         type="string",
+     *                         example=""
+     *                      ),
+     *                      @OA\Property(
+     *                         property="artistId",
      *                         type="string",
      *                         example=""
      *                      ),
@@ -65,7 +72,8 @@ class CreateRecordPostController extends ApiController
 
         $createRecordCommand =  new CreateRecordCommand(
                $request->id(),
-                $request->name()
+                $request->name(),
+                $request->artistId(),
             );
 
 

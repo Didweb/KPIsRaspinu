@@ -18,7 +18,8 @@ final class CreateRecord
     {
         $record = new Record (
             $dto->id(),
-            $dto->name()
+            $dto->name(),
+            $dto->artistId()
         );
 
         $this->repository->create($record);

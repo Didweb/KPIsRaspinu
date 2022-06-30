@@ -10,7 +10,8 @@ final class RecordResponseConverter
     {
         return new RecordResponse(
             $record->id(),
-            $record->name()
+            $record->name(),
+            $record->artistId()
         );
     }
 }

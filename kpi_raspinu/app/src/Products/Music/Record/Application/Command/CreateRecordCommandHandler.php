@@ -2,6 +2,7 @@
 
 namespace App\Products\Music\Record\Application\Command;
 
+use App\Products\Music\Artist\Domain\ValueObjects\ArtistId;
 use App\Products\Music\Record\Application\Services\CreateRecord;
 use App\Products\Music\Record\Application\Services\CreateRecordServiceCommand;
 use App\Products\Music\Record\Domain\Exceptions\RecordExistException;
@@ -15,13 +16,11 @@ use App\Shared\Domain\Bus\Command\CommandBusInterface;
 
 class CreateRecordCommandHandler
 {
-    private RecordQueryRepository $recordQueryRepository;
     private CreateRecord $createRecord;
     private RecordFinder $finder;
 
 
     public function __construct(CreateRecord $createRecord,
-                                CommandBusInterface $commandBus,
                                 RecordQueryRepository $recordQueryRepository)
     {
         $this->createRecord = $createRecord;
@@ -38,7 +37,8 @@ class CreateRecordCommandHandler
         }
         $createRecord = new CreateRecordServiceCommand(
             $recordId,
-            $command->name()
+            $command->name(),
+            ArtistId::create($command->artistId())
         );
 
         $this->createRecord->__invoke($createRecord);

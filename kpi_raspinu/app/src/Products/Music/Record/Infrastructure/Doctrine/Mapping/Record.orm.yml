@@ -8,3 +8,14 @@ App\Products\Music\Record\Domain\Record:
   fields:
     name: { type: string }
 
+  uniqueConstraints:
+    idx_record:
+      columns: [ id ]
+
+  OneToMany:
+    artist_id:
+      targetEntity: App\Products\Music\Artist\Domain\Artist
+      joinColumn:
+        name: artist_id
+        referencedColumnName: id
+

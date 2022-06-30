@@ -14,9 +14,14 @@ final class FindArtist
         $this->queryRepository = $queryRepository;
     }
 
-    public function __invoke(ArtistId $artistId): ?Artist
+    public function checkByArtistId(ArtistId $artistId): ?Artist
     {
         return $this->queryRepository->findOneBy($artistId);
+    }
+
+    public function checkByArtistName(string $name): ?Artist
+    {
+        return $this->queryRepository->findOneByName($name);
     }
 
 }

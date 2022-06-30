@@ -12,8 +12,6 @@ use App\Shared\Domain\ValueObjects\Paginated\PaginatedCollection;
 use App\Shared\Domain\ValueObjects\Paginated\PaginatedResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 class DoctrineRecordRepository implements RecordQueryRepository
