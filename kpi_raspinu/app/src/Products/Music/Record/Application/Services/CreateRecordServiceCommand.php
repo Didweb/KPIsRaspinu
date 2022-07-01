@@ -9,14 +9,14 @@ class CreateRecordServiceCommand
 {
     private RecordId $id;
     private string $name;
-    private ArtistId $artistId;
+    private ArtistId $artist_id;
 
 
-    public function __construct(RecordId $id, string $name, ArtistId $artistId)
+    public function __construct(RecordId $id, string $name, ArtistId $artist_id)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->artistId = $artistId;
+        $this->artist_id = $artist_id;
     }
 
 
@@ -32,9 +32,9 @@ class CreateRecordServiceCommand
     }
 
 
-    public function artistId(): ArtistId
+    public function artist_id(): ArtistId
     {
-        return $this->artistId;
+        return $this->artist_id;
     }
 
 

@@ -36,7 +36,7 @@ class CreateRecordPostController extends ApiController
      *                example={{
      *                  "id": "b026b3f4-be48-11eb-8529-0242ac130003",
      *                  "name": "Kaya",
-     *                  "artistId": "80007fc6-f7bc-11ec-b939-0242ac120002",
+     *                  "artist_id": "80007fc6-f7bc-11ec-b939-0242ac120002",
      *                }},
      *                @OA\Items(
      *                      @OA\Property(
@@ -50,7 +50,7 @@ class CreateRecordPostController extends ApiController
      *                         example=""
      *                      ),
      *                      @OA\Property(
-     *                         property="artistId",
+     *                         property="artist_id",
      *                         type="string",
      *                         example=""
      *                      ),
@@ -68,12 +68,13 @@ class CreateRecordPostController extends ApiController
      */
     public function __invoke(Request $request): Response
     {
+
         $request = CreateRecordRequest::fromContent($this->getContent($request));
 
         $createRecordCommand =  new CreateRecordCommand(
                $request->id(),
                 $request->name(),
-                $request->artistId(),
+                $request->artist_id(),
             );
 
 

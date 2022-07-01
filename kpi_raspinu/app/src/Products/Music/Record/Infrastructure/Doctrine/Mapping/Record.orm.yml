@@ -7,13 +7,14 @@ App\Products\Music\Record\Domain\Record:
 
   fields:
     name: { type: string }
+    artist_id: { type: artist_id }
 
   uniqueConstraints:
     idx_record:
       columns: [ id ]
 
   OneToMany:
-    artist_id:
+    artistId:
       targetEntity: App\Products\Music\Artist\Domain\Artist
       joinColumn:
         name: artist_id

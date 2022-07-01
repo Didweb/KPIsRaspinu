@@ -2,6 +2,7 @@
 
 namespace App\Products\Music\Record\Application\Command;
 
+use App\Products\Music\Artist\Domain\ValueObjects\ArtistId;
 use App\Products\Music\Record\Application\Services\UpdateRecordServiceCommand;
 use App\Products\Music\Record\Domain\Exceptions\RecordNotFoundException;
 use App\Products\Music\Record\Domain\RecordCommandRepository;
@@ -36,10 +37,12 @@ class UpdateRecordCommandHandler
         }
 
         $name = $command->name();
+        $artist_id = ArtistId::create($command->artist_id());
 
         $serviceCommand = new UpdateRecordServiceCommand(
             $recordId,
-            $name
+            $name,
+            $artist_id
         );
 
         $record->update($serviceCommand);

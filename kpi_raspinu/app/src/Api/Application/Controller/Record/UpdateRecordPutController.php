@@ -40,11 +40,17 @@ namespace App\Api\Application\Controller\Record;
       *                property="record",
       *                type="array",
       *                example={{
-      *                  "name": "Kaya"
+      *                  "name": "Kaya",
+      *                  "artist_id": "80007fc6-f7bc-11ec-b939-0242ac120002",
       *                }},
       *                @OA\Items(
       *                      @OA\Property(
       *                         property="name",
+      *                         type="string",
+      *                         example=""
+      *                      ),
+      *                      @OA\Property(
+      *                         property="artist_id",
       *                         type="string",
       *                         example=""
       *                      ),
@@ -64,7 +70,8 @@ namespace App\Api\Application\Controller\Record;
          $this->commandBus->dispatch(
              new UpdateRecordCommand(
                  $id,
-                 $request->name()
+                 $request->name(),
+                 $request->artist_id(),
              )
          );
 

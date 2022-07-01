@@ -1,26 +1,23 @@
 <?php
 
-namespace App\Api\Application\Controller\Record;
+namespace App\Api\Application\Controller\Artist;
 
-use App\Api\Application\Controller\Record\Request\CreateRecordRequest;
-use App\Api\Application\Controller\Record\Request\DeleteRecordRequest;
-use App\Products\Music\Record\Application\Command\CreateRecordCommand;
-use App\Products\Music\Record\Application\Command\DeleteRecordCommand;
+use App\Products\Music\Artist\Application\Command\RemoveArtistCommand;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use OpenApi\Annotations as OA;
 
-class DeleteRecordDeleteController  extends ApiController
+class RemoveArtistDeleteController extends ApiController
 {
     /**
-     * Remove Records
+     * Remove Artist
      *
-     * @Route("/records/delete", methods={"DELETE"}, name="api_record_delete")
+     * @Route("/artist/delete", methods={"DELETE"}, name="api_artist_delete")
      * @OA\Tag(
-     *     name="Products Records",
-     *     description="Operations about records"
+     *     name="Products Artist",
+     *     description="Operations about artist"
      * ),
      * @OA\Parameter(parameter="id",name="id",
      *     description="Id to delete",
@@ -35,16 +32,15 @@ class DeleteRecordDeleteController  extends ApiController
      */
     public function __invoke(Request $request): Response
     {
-
-        $deleteRecordCommand =  new DeleteRecordCommand(
+        $removeArtistCommand = new RemoveArtistCommand(
             $request->get('id')
         );
 
+        $this->dispatch($removeArtistCommand);
 
-        $this->dispatch($deleteRecordCommand);
-
-        return  $this->makeResponse($deleteRecordCommand->_toArray(), Response::HTTP_CREATED);
+        return $this->makeResponse($removeArtistCommand->_toArray(), Response::HTTP_CREATED);
     }
+
 
     protected function exceptions(): array
     {

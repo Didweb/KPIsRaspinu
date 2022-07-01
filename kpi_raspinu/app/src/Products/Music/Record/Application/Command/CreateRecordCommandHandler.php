@@ -38,8 +38,9 @@ class CreateRecordCommandHandler
         $createRecord = new CreateRecordServiceCommand(
             $recordId,
             $command->name(),
-            ArtistId::create($command->artistId())
+            ArtistId::create($command->artist_id())
         );
+
 
         $this->createRecord->__invoke($createRecord);
     }

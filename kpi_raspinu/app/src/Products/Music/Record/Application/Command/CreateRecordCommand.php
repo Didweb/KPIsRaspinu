@@ -8,16 +8,16 @@ final class CreateRecordCommand extends Command
 {
     private string $id;
     private string $name;
-    private string $artistId;
+    private string $artist_id;
 
 
     public function __construct(string $id,
                                 string $name,
-                                string $artistId)
+                                string $artist_id)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->artistId = $artistId;
+        $this->artist_id = $artist_id;
     }
 
 
@@ -33,9 +33,9 @@ final class CreateRecordCommand extends Command
     }
 
 
-    public function artistId(): string
+    public function artist_id(): string
     {
-        return $this->artistId;
+        return $this->artist_id;
     }
 
 
@@ -44,7 +44,7 @@ final class CreateRecordCommand extends Command
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'artistId' => $this->artistId,
+            'artist_id' => $this->artist_id,
         ];
     }
 

@@ -9,16 +9,16 @@ final class Record
 {
     private RecordId $id;
     private string $name;
-    private ArtistId $artistId;
+    private ArtistId $artist_id;
 
 
     public function __construct(RecordId $id,
-                                string $name,
-                                ArtistId $artistId)
+                                string   $name,
+                                ArtistId $artist_id)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->artistId = $artistId;
+        $this->artist_id = $artist_id;
     }
 
 
@@ -34,9 +34,9 @@ final class Record
     }
 
 
-    public function artistId(): ArtistId
+    public function artist_id(): ArtistId
     {
-        return $this->artistId;
+        return $this->artist_id;
     }
 
 
@@ -45,7 +45,7 @@ final class Record
     {
         $this->id = $command->id();
         $this->name =  $command->name();
-        $this->artistId =  $command->artistId();
+        $this->artist_id =  $command->artist_id();
 
         return $this;
     }
